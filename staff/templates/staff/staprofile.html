@@ -1,0 +1,63 @@
+{% extends 'staff/examcardbase.html' %}
+{% load static %}
+{% block content %}
+<!-- start page container -->
+<div class="page-container">
+    <!-- start sidebar menu -->
+    {% include 'tags/sidebar.html' %}
+    <!-- end sidebar menu -->
+    <!-- start page content -->
+
+    <div class="page-content-wrapper">
+        <div class="page-content container mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box">
+                        <h3><b>EMP ID: {{staff_id}}</b> <span class="pull-right"></span></h3>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12 mb-2 p-4">
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4 text">
+                                        <p class="text-center addr-font-h3">
+                                            Rongo University
+                                            Staff
+                                        </p>
+                                        <p class="text-center">
+                                            <img src="{% static 'img/logo.png' %}" alt="logo" class="logo-default" />
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                     <div class="col-md-4">
+                                        <div class="profile-userpic">
+                                            <img src="/profile{{user.staffprofile.profile_photo.url}}" class="img-responsive" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="pull-right text-right col-md-4">
+                                        <address>
+                                            <p class="addr-font-h2">SESSION: SEMESTER TWO</p>
+                                            <p class="font-bold addr-font-h2">TYPE OF WORKER: Regular</p>
+                                            <p class="text-muted m-l-30">NAME: {{user.staffprofile.first_name}} {{user.staffprofile.sirname}} {{user.staffprofile.last_name}}
+                                            </p>
+                                        </address>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page content -->
+    <!-- start chat sidebar -->
+    {% include 'tags/applicationsettings.html' %}
+    <!-- end chat sidebar -->
+</div>
+<!-- end page container -->
+{% endblock %}
