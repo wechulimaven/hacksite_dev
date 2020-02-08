@@ -1,6 +1,7 @@
 from django import forms
 from .models import StaffProfile, StaffReport
 from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth import authenticate, get_user_model, login, logout
 
 
 class StaffProfileForm(forms.ModelForm):
@@ -23,6 +24,31 @@ class StaffEditProfileForm(UserChangeForm):
     class Meta:
         model = StaffProfile
         fields = ['first_name','last_name','surname','staff_id','profile_photo']
+        
+class StaffLoginForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'input100', 'id': 'id_username', 'placeholder':'Username', 'required': 'true'}))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'input100', 'id': 'id_password', 'placeholder':'Password','required': 'true'}))
+
+    def clean(self, *args, **kwargs):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        # user_qs = User.objects.filter(username=username)
+        # if user_qs.count() == 1:
+        #     user = user_qs.first()
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if not user:
+                raise forms.ValidationError(
+                    "This user Does Not exists in the system")
+            if not user.check_password(password):
+                raise forms.ValidationError("Password Incorrect")
+            if not user.is_active:
+                raise forms.ValidationError(
+                    "User Is No longer Active. Contact Admin 254797324006")
+        return super(StaffLoginForm, self).clean(*args, **kwargs)
+
                        
 
 

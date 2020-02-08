@@ -6,12 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from .models import *
-from .forms import StaffProfileForm, StaffEditProfileForm
+from .forms import StaffProfileForm, StaffEditProfileForm, StaffLoginForm
 from examcard.models import StudentProfile, Fee, Log, Report, Unit, StudentUnit
-from examcard.forms import UserLoginForm, StudentProfileForm, UserRegisterForm, ReportForm, StudentUnitForm
+from examcard.forms import StudentProfileForm, UserRegisterForm, ReportForm, StudentUnitForm
 
 
-# @login_required(login_url='examcard:login')
+@login_required(login_url='staff:stafflogin')
 def staff_dashboard(request):
     try:
         staff_qs = Fee.objects.filter(profile_id = request.user.staffprofile.id)
@@ -22,7 +22,7 @@ def staff_dashboard(request):
 
 
 @staff_member_required(login_url='admin:login')
-@login_required(login_url='examcard:login')
+@login_required(login_url='staff:stafflogin')
 def attendance_reg(request):
     register_qs = Report.objects.filter(user_id = request.user.id).order_by('-id')
     return render(request, 'staff/register.html', {'report_list_qs':register_qs})
@@ -57,7 +57,7 @@ def exam_card_scanner(request):
         messages.success(request, f'Scanning error: NO QR Code Captured for scanning. Please capture again!!!')
         return render(request, 'staff/scanner.html', context)
     
-@login_required(login_url='examcard:login')
+@login_required(login_url='staff:stafflogin')
 def staff_create_profile(request):
     context = {}
     if request.method == 'POST':
@@ -94,6 +94,29 @@ def staffprofile(request):
     else:
         args = {'user': request.user}
         return render(request, "staff/staprofile.html", args)
+    
+def stafflogin(request):
+    if request.method == 'POST':
+        form = StaffLoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+
+            user = authenticate(
+                username=username,
+                password=password
+            )
+            login(request, user)
+
+            messages.success(request, f'login was Success {username} !!!')
+            return redirect('staff/staff_dashboard/')
+        else:
+            messages.success(
+                request, f'login Error !!!! Provide Correct Username And Password')
+    else:
+        form = StaffLoginForm()
+    return render(request, 'staff/staflogin.html', {'form': form})
+
 
 
     

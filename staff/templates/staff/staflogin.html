@@ -11,10 +11,10 @@
             {% endfor %}
         {% endfor %}
         <div class="wrap-login100">
-            <form action="{% url 'examcard:login' %}" method="POST">
+            <form action="{% url 'staff:staflogin' %}" method="POST">
                 {% csrf_token %}
                 <span class="login100-form-logo">
-                    <img alt="" src="{% static 'img/logo-2.png' %}">
+                    <img alt="" src="{% static 'staff/img/logo-2.png' %}">
                 </span>
                 <span class="login100-form-title p-b-34 p-t-27">
                     Sign In
@@ -31,7 +31,7 @@
                     <button type="submit" class="login100-form-btn">
                         Sign In
                     </button>
-                    <a href="{% url 'examcard:student_register' %}" class="text-white ml-5 mt-4">Dont't Have an Account?</a>
+                    <a href="#" class="text-white ml-5 mt-4">Dont't Have an Account? Contact the adminstrator for Clearence</a>
                 </div>
             </form>
         </div>

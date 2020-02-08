@@ -26,11 +26,11 @@
                 <!-- start language menu -->
                 <li class="dropdown language-switch">
                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img
-                            src="{% static 'img/flags/gb.png' %}" class="position-left" alt=""> English <i class="material-icons">arrow_drop_down</i>
+                            src="{% static 'staff/img/flags/gb.png' %}" class="position-left" alt=""> English <i class="material-icons">arrow_drop_down</i>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="english"><img src="{% static 'img/flags/gb.png' %}" alt=""> English</a>
+                            <a class="english"><img src="{% static 'staff/img/flags/gb.png' %}" alt=""> English</a>
                         </li>
                     </ul>
                 </li>
@@ -39,7 +39,7 @@
                 <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                         data-close-others="true">
-                        <img alt="" class="img-circle " src="/profile{{user.staffprofile.profile_photo.url}}" />
+                        <img alt="" class="img-circle " src="/stafprofile{{user.staffprofile.profile_photo.url}}" />
                         <span class="username username-hide-on-mobile"> {{user.username}} </span>
                         <i class="material-icons">arrow_drop_down</i>
                     </a>
@@ -55,7 +55,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#">
+                            <a href="{% url 'examcard:user_log_out' %}">
                                 <i class="material-icons">visibility_off</i> Log Out </a>
                         </li>
                     </ul>

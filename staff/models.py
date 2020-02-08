@@ -13,7 +13,7 @@ class StaffProfile(models.Model):
     
     def __str__(self):
         """Unicode representation of Report."""
-        return f'{self.user} {self.staff_id} {self.first_name} {self.first_last_name}'
+        return f'{self.user} {self.staff_id} {self.first_name} {self.last_name}'
     
 class StaffReport(models.Model):
     user = models.ForeignKey(StaffProfile, on_delete=models.CASCADE)
