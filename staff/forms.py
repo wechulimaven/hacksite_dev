@@ -34,9 +34,7 @@ class StaffLoginForm(forms.Form):
     def clean(self, *args, **kwargs):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
-        # user_qs = User.objects.filter(username=username)
-        # if user_qs.count() == 1:
-        #     user = user_qs.first()
+        
         if username and password:
             user = authenticate(username=username, password=password)
             if not user:
